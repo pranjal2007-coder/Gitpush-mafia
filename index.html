@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panto</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #fff;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      color: #ff7b00;
+    }
+
+    /* Hero */
+    .hero {
+      background: url('https://cdn.animaapp.com/projects/68ef3b191995d0b6d34412d0/releases/68ef3bd6053e3da6fa1f8b62/img/rectangle-1441.png') center/cover no-repeat;
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      color: #fff;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.45);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 800px;
+      z-index: 1;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      margin-bottom: 25px;
+      font-size: 18px;
+      color: #eee;
+    }
+
+    .hero button {
+      background: #ff7b00;
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hero button:hover {
+      background: #e86b00;
+    }
+
+    /* Why Choosing Us */
+    .why {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      text-align: center;
+      padding: 60px 20px;
+      background: #fafafa;
+    }
+
+    .why div {
+      flex: 1 1 250px;
+      margin: 20px;
+    }
+
+    .why h3 {
+      color: #ff7b00;
+      margin-bottom: 8px;
+    }
+
+    /* Best Selling Products */
+    .h2-container {
+      width: 90%;
+      margin: 60px auto;
+      text-align: center;
+    }
+
+    .h2-container h2 {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .filters button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .filters .active {
+      background: #000;
+      color: #fff;
+    }
+
+    .carousel-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .carousel {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 220px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .card h4 {
+      margin: 10px 0 5px;
+    }
+
+    .rating {
+      color: orange;
+      font-size: 0.9em;
+    }
+
+    .price-add {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .price-add button {
+      background: #001f3f;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+    /* Experience Section */
+    .experience, .materials {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 80px 60px;
+      gap: 40px;
+    }
+
+    .experience img, .materials img {
+      flex: 1 1 400px;
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .experience-content, .materials-content {
+      flex: 1 1 400px;
+    }
+
+    .experience-content h3, .materials-content h3 {
+      color: #ff7b00;
+      margin-bottom: 10px;
+    }
+
+    .experience-content h2, .materials-content h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    /* Reviews */
+    .reviews {
+      padding: 80px 60px;
+      text-align: center;
+    }
+
+    .reviews h2 {
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .review {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .review img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .review h4 {
+      margin-bottom: 5px;
+    }
+
+    .review p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 60px 40px 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-about h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .footer-about p {
+      color: #aaa;
+      line-height: 1.6;
+      max-width: 300px;
+    }
+
+    .footer-column h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column ul li a:hover {
+      color: #ff7b00;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+       .footer-bottom p {
+      color: #aaa;
+      margin: 0;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-bottom-links a:hover {
+      color: #ff7b00;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        height: 70vh;
+        padding: 0 20px;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-top: 10px;
+      }
+
+      .experience,
+      .materials {
+        flex-direction: column;
+        padding: 40px 20px;
+      }
+
+      .h2-container {
+        width: 100%;
+        padding: 0 20px;
+      }
+
+      .carousel {
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+      }
+
+      .cards {
+        flex-wrap: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Panto</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="">Products</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Make Your Interior More Minimalistic & Modern</h2>
+      <p>Turn your room with panto into a lot more minimalist and modern with ease and speed.</p>
+      <button>Search Furniture</button>
+    </div>
+  </section>
+
+  <section class="why">
+    <div>
+      <h3>Luxury Interior</h3>
+      <p>The advantage of hiring a workspace with us is that givees you comfortable service and all-around facilities.</p>
+    </div>
+    <div>
+      <h3>Affordable Price</h3>
+      <p>You can get a workspace of the highst quality at an affordable price and still enjoy the facilities that are oly here.</p>
+    </div>
+    <div>
+      <h3>Many Choices</h3>
+      <p>We provide many unique work space choices so that you can choose the workspace to your liking..</p>
+    </div>
+  </section>
+
+  <div class="h2-container">
+    <h2>Best Selling Product</h2>
+    <div class="filters">
+      <button class="active">Chair</button>
+      <button>Beds</button>
+      <button>Sofa</button>
+      <button>Lamp</button>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel" id="cards">
+        <div class="card">
+          <img src="armchair.png" alt="Sakarias Armchair">
+          <h4>Sakarias Armchair</h4>
+          
+          <div class="price-add">
+            <span>$392</span>
+            <button>+</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="chair.png" alt="Baltsar Chair">
+          <h4>Baltsar Chair</h4>
+        
+          <div class="price-add">
+            <span>$299</span>
+            <button>+</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="chair2.png" alt="Anjay Chair">
+          <h4>Anjay Chair</h4>
+       
+          <div class="price-add">
+            <span>$519</span>
+            <button>+</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="chair3.png" alt="Nyantuy Chair">
+          <h4>Nyantuy Chair</h4>
+         
+          <div class="price-add">
+            <span>$921</span>
+            <button>+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="experience">
+    <img src="sofa.png"">
+    <div class="experience-content">
+      <h3>Experience</h3>
+      <h2>We Provide You The Best Experience</h2>
+      <p>You don’t have to worry about the result because all of these interiors are made by people who are professionals in their fields with an elegant and lucurious style and with premium quality materials</p>
+    </div>
+  </section>
+
+  <section class="materials">
+    <div class="materials-content">
+      <h3>Materials</h3>
+      <h2>Very Serious Materials For Making Furniture</h2>
+      <p>Because panto was very serious about designing furniture for our environment, using a very expensive and famous capital but at a relatively low price</p>
+    </div>
+    <img src="Screenshot 2025-10-15 112205.png" alt="Materials">
+  </section>
+
+  <section class="reviews">
+    <h2>Our Client Reviews</h2>
+    <div class="review-grid">
+      <div class="review">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+        <h4>Jessica Lee</h4>
+        <p>“Absolutely love my new sofa! The design and comfort are unmatched.”</p>
+      </div>
+      <div class="review">
+        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="">
+        <h4>Michael Smith</h4>
+        <p>“Fast delivery and fantastic build quality. Highly recommend!”</p>
+      </div>
+      <div class="review">
+        <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="">
+        <h4>Sophia Patel</h4>
+        <p>“The perfect addition to my minimalist apartment. Excellent service.”</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="panto-footer">
+    <div class="footer-container">
+      <div class="footer-about">
+        <h2>Panto</h2>
+        <p>The advantage of hiring a workspace with us is that gives you comfortable service and all-around facilities.</p>
+      </div>
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Email Marketing</a></li>
+          <li><a href="#">Campaigns</a></li>
+          <li><a href="#">Branding</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Furniture</h3>
+        <ul>
+          <li><a href="#">Beds</a></li>
+          <li><a href="#">Chair</a></li>
+          <li><a href="#">All</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Follow Us</h3>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright © 2025</p>
+      <div class="footer-bottom-links">
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
